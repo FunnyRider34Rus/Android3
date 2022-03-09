@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.android3.BuildConfig
 import com.example.android3.model.APODAPImpl
 import com.example.android3.model.APODDTO
-import com.example.android3.model.APODState
+import com.example.android3.APODState
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

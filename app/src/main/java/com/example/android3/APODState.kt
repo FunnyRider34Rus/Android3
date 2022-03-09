@@ -1,4 +1,6 @@
-package com.example.android3.model
+package com.example.android3
+
+import com.example.android3.model.APODDTO
 
 sealed class APODState {
     data class Success (val serverResponseData: APODDTO) : APODState()
