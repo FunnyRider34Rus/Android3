@@ -5,8 +5,12 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_image_search_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/main_activity.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/main_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/bottom_sheet_apod_description.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/bottom_sheet_web_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/description_bottom_sheet.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.14175724637681159" />
+        <entry key="app/src/main/res/layout/main_activity.xml" value="0.12" />
+        <entry key="app/src/main/res/layout/main_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main_bottom_menu.xml" value="0.25" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.1" />
       </map>

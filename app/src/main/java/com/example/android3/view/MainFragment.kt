@@ -1,11 +1,14 @@
 package com.example.android3.view
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import coil.load
 import com.example.android3.databinding.MainFragmentBinding
 import com.example.android3.APODState
@@ -35,14 +38,28 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendServerRequest()
+
+        //обработка поля ввода текстового поиска
+        binding.search.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.input.text.toString()}")
+            })
+        }
     }
 
-    private fun renderData(apodState: APODState){
-        when(apodState){
+    private fun renderData(apodState: APODState) {
+        when (apodState) {
             is APODState.Error -> {}//TODO()
-            is APODState.Loading -> {}//TODO()
+            is APODState.Loading -> {
+                binding.progressBar.isVisible = true
+                binding.pictOfTheDay.isVisible = false
+            }
             is APODState.Success -> {
+                binding.progressBar.isVisible = false
+                binding.pictOfTheDay.isVisible = true
                 binding.pictOfTheDay.load(apodState.serverResponseData.hdurl)
+                binding.included.bottomSheetDescriptionHeader.text = apodState.serverResponseData.title
+                binding.included.bottomSheetDescriptionBody.text = apodState.serverResponseData.explanation
             }
         }
 
