@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_pict"
         android:title="@string/menu_item_pict"
-        android:icon="@drawable/ic_baseline_image_search_48"/>
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_favorite_24"/>
 
     <item
         android:id="@+id/menu_settings"
         android:title="@string/menu_item_setting"
-        android:icon="@drawable/ic_baseline_settings_applications_48"/>
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_settings_24"/>
 </menu>

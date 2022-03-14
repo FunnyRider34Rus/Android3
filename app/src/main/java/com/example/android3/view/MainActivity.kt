@@ -1,7 +1,10 @@
 package com.example.android3.view
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import com.example.android3.R
 import com.example.android3.databinding.MainActivityBinding
 
