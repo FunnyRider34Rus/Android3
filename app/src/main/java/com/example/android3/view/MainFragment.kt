@@ -9,13 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import coil.load
 import com.example.android3.databinding.MainFragmentBinding
 import com.example.android3.APODState
+import com.example.android3.R
 import com.example.android3.viewmodel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
 
@@ -55,7 +56,11 @@ class MainFragment : Fragment() {
 
     private fun renderData(apodState: APODState) {
         when (apodState) {
-            is APODState.Error -> {}//TODO()
+            is APODState.Error -> {
+                Snackbar.make(binding.root, getString(R.string.error_loading),
+                    Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.error_repeat)
+                ) { viewModel.sendServerRequest() }.show()
+            }
             is APODState.Loading -> {
                 binding.progressBar.isVisible = true
                 binding.fragmentMainView.isVisible = false

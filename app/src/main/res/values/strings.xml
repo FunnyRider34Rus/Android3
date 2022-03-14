@@ -6,4 +6,6 @@
     <string name="search">Поиск в Википедии</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_loading">Ошибка получения данных</string>
+    <string name="error_repeat">Повторить</string>
 </resources>
