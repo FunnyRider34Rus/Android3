@@ -33,7 +33,7 @@ class MainViewModel(
                 }
 
                 override fun onFailure(call: Call<APODDTO>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    throw Exception("Ошибка получения данных")
                 }
             }
         )
