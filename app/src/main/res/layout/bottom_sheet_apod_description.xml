@@ -11,6 +11,7 @@
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <androidx.cardview.widget.CardView
+        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/small_indent">
@@ -30,7 +31,7 @@
 
             <TextView
                 android:id="@+id/bottom_sheet_description_header"
-                style="@style/TextAppearance.MaterialComponents.Headline5"
+                style="@style/TextAppearance.Material3.HeadlineSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -43,7 +44,7 @@
 
                 <TextView
                     android:id="@+id/bottom_sheet_description_body"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    style="@style/TextAppearance.Material3.BodyLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
