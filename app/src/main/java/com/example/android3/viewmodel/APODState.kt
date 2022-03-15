@@ -1,4 +1,4 @@
-package com.example.android3
+package com.example.android3.viewmodel
 
 import com.example.android3.model.APODDTO
 

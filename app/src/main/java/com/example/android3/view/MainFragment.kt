@@ -4,15 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import coil.load
 import com.example.android3.databinding.MainFragmentBinding
-import com.example.android3.APODState
+import com.example.android3.viewmodel.APODState
 import com.example.android3.R
 import com.example.android3.viewmodel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setBottomAppBar(binding.bottomAppbar)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         viewModel.sendServerRequest()
@@ -81,6 +82,28 @@ class MainFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(view as Toolbar)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.menu_pict -> Toast.makeText(requireContext(),"Favorite",Toast.LENGTH_SHORT).show()
+            R.id.menu_settings -> Toast.makeText(requireContext(),"Settings",Toast.LENGTH_SHORT).show()
+            android.R.id.home -> {
+                BottomSheetNavFragment().show(requireActivity().supportFragmentManager,"")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
