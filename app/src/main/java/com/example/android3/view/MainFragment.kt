@@ -2,12 +2,14 @@ package com.example.android3.view
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import coil.load
@@ -16,7 +18,9 @@ import com.example.android3.viewmodel.APODState
 import com.example.android3.R
 import com.example.android3.viewmodel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
+import java.time.LocalDate
 
 class MainFragment : Fragment() {
 
@@ -39,12 +43,23 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomAppBar(binding.bottomAppbar)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        viewModel.sendServerRequest()
+        viewModel.sendServerRequest(getDate(0))
+
+        binding.chips.setOnCheckedChangeListener { group, checkedId ->
+            binding.chips.findViewById<Chip>(checkedId)?.let {
+                when(checkedId) {
+                    1 -> viewModel.sendServerRequest(getDate(2))
+                    2 -> viewModel.sendServerRequest(getDate(1))
+                    3 -> viewModel.sendServerRequest(getDate(0))
+                }
+            }
+        }
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
 
@@ -61,7 +76,7 @@ class MainFragment : Fragment() {
             is APODState.Error -> {
                 Snackbar.make(binding.root, getString(R.string.error_loading),
                     Snackbar.LENGTH_INDEFINITE).setAction(getString(R.string.error_repeat)
-                ) { viewModel.sendServerRequest() }.show()
+                ) {  }.show()
             }
             is APODState.Loading -> {
                 binding.progressBar.isVisible = true
@@ -104,6 +119,13 @@ class MainFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getDate(day: Long): LocalDate? {
+        var date = LocalDate.now()
+        date = date.minusDays(day)
+        return date
     }
 
     override fun onDestroyView() {
