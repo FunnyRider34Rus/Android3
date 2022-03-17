@@ -22,12 +22,12 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
-class MainFragment : Fragment() {
+private const val CURRENT_DAY = "currentday"
+private const val CURRENT_CHIP = "currentchip"
+private var day: Long? = 0
+private var currentChip: Int? = null
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MainFragment()
-    }
+class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
@@ -36,6 +36,16 @@ class MainFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private var currentDay: LocalDate? = getDate(0)     //установка текущей даты
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            day = savedInstanceState.getLong(CURRENT_DAY);
+            currentChip = savedInstanceState.getInt(CURRENT_CHIP)
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +59,11 @@ class MainFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setBottomAppBar(binding.bottomAppbar)
+        if (currentChip != null) {
+            binding.chips.findViewById<Chip>(currentChip!!).isChecked = true
+        }
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         updateScreen(currentDay)        //отображаем экран по умолчанию
@@ -59,15 +73,21 @@ class MainFragment : Fragment() {
             binding.chips.findViewById<Chip>(checkedId)?.let {
                 when (checkedId) {
                     1 -> {
-                        currentDay = getDate(2)
+                        day = 2
+                        currentChip = checkedId
+                        currentDay = getDate(day!!)
                         updateScreen(currentDay)
                     }
                     2 -> {
-                        currentDay = getDate(1)
+                        day = 1
+                        currentChip = checkedId
+                        currentDay = getDate(day!!)
                         updateScreen(currentDay)
                     }
                     3 -> {
-                        currentDay = getDate(0)
+                        day = 0
+                        currentChip = checkedId
+                        currentDay = getDate(day!!)
                         updateScreen(currentDay)
                     }
                 }
@@ -152,14 +172,24 @@ class MainFragment : Fragment() {
 
     //установка нужной даты
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getDate(day: Long): LocalDate? {
+    private fun getDate(day: Long): LocalDate {
         var date = LocalDate.now()
         date = date.minusDays(day)
         return date
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        day?.let { outState.putLong(CURRENT_DAY, it) }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = MainFragment()
     }
 }
