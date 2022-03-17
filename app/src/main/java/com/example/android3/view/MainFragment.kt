@@ -43,8 +43,8 @@ class MainFragment : Fragment() {
         if (savedInstanceState != null) {
             day = savedInstanceState.getLong(CURRENT_DAY);
             currentChip = savedInstanceState.getInt(CURRENT_CHIP)
+            currentDay = getDate(day!!)
         }
-
     }
 
     override fun onCreateView(
@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
 
         setBottomAppBar(binding.bottomAppbar)
         if (currentChip != null) {
-            binding.chips.findViewById<Chip>(currentChip!!).isChecked = true
+            binding.chips.check(currentChip!!)
         }
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
@@ -181,6 +181,7 @@ class MainFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         day?.let { outState.putLong(CURRENT_DAY, it) }
+        currentChip?.let { outState.putInt(CURRENT_CHIP, it) }
     }
 
     override fun onDestroyView() {
