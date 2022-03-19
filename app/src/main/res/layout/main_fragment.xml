@@ -39,24 +39,29 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_indent"
             app:singleSelection="true"
-            app:chipSpacingHorizontal="42dp"
+            app:selectionRequired="true"
+            app:chipSpacingHorizontal="@dimen/chip_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_before_yesterday"
                 style="@style/Widget.Material3.Chip.Filter"
+                app:chipBackgroundColor="@color/overlay_light_primaryContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/before" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_yesterday"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yesterday" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_today"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -6,7 +6,7 @@ import com.google.android.material.color.DynamicColors
 class App : Application() {
 
     override fun onCreate() {
-        DynamicColors.applyToActivitiesIfAvailable(this)
+        DynamicColors.applyToActivitiesIfAvailable(this, R.style.AppTheme_Overlay)
         super.onCreate()
     }
 }
