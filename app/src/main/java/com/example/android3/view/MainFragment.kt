@@ -56,11 +56,9 @@ class MainFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setBottomAppBar(binding.bottomAppbar)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        binding.chips.check(R.id.chip_today)
         updateScreen(currentDay)        //отображаем экран по умолчанию
 
         //обратока чипов и перерисовка экранов

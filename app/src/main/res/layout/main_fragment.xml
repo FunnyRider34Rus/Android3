@@ -47,22 +47,21 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_before_yesterday"
-                style="@style/Widget.Material3.Chip.Filter"
-                app:chipBackgroundColor="@color/overlay_light_primaryContainer"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/before" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_yesterday"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yesterday" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_today"
-                style="@style/Widget.Material3.Chip.Filter"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -101,7 +100,6 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_appbar"
-        style="@style/Widget.Material3.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -115,7 +113,6 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        style="@style/Widget.Material3.FloatingActionButton.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/bottom_sheet_behavior"
