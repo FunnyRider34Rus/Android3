@@ -45,18 +45,21 @@
             app:layout_constraintTop_toBottomOf="@id/search">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_before_yesterday"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/before" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_yesterday"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/yesterday" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_today"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

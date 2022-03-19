@@ -23,9 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
 private const val CURRENT_DAY = "currentday"
-private const val CURRENT_CHIP = "currentchip"
 private var day: Long? = 0
-private var currentChip: Int? = null
 
 class MainFragment : Fragment() {
 
@@ -42,7 +40,6 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
             day = savedInstanceState.getLong(CURRENT_DAY);
-            currentChip = savedInstanceState.getInt(CURRENT_CHIP)
             currentDay = getDate(day!!)
         }
     }
@@ -60,10 +57,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBottomAppBar(binding.bottomAppbar)
-        if (currentChip != null) {
-            binding.chips.check(currentChip!!)
-        }
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         updateScreen(currentDay)        //отображаем экран по умолчанию
@@ -72,21 +65,18 @@ class MainFragment : Fragment() {
         binding.chips.setOnCheckedChangeListener { group, checkedId ->
             binding.chips.findViewById<Chip>(checkedId)?.let {
                 when (checkedId) {
-                    1 -> {
+                    R.id.chip_before_yesterday -> {
                         day = 2
-                        currentChip = checkedId
                         currentDay = getDate(day!!)
                         updateScreen(currentDay)
                     }
-                    2 -> {
+                    R.id.chip_yesterday -> {
                         day = 1
-                        currentChip = checkedId
                         currentDay = getDate(day!!)
                         updateScreen(currentDay)
                     }
-                    3 -> {
+                    R.id.chip_today -> {
                         day = 0
-                        currentChip = checkedId
                         currentDay = getDate(day!!)
                         updateScreen(currentDay)
                     }
@@ -181,7 +171,6 @@ class MainFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         day?.let { outState.putLong(CURRENT_DAY, it) }
-        currentChip?.let { outState.putInt(CURRENT_CHIP, it) }
     }
 
     override fun onDestroyView() {
