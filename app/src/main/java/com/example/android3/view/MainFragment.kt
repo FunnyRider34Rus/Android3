@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
 private const val CURRENT_DAY = "currentday"
+
 private var day: Long? = 0
 
 class MainFragment : Fragment() {
@@ -56,7 +57,8 @@ class MainFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomAppBar(binding.bottomAppbar)
+
+        setBottomAppBar(binding.bottomAppbar)   //инициализируем appBar
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         updateScreen(currentDay)        //отображаем экран по умолчанию
@@ -151,10 +153,11 @@ class MainFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_pict -> Toast.makeText(requireContext(), "Favorite", Toast.LENGTH_SHORT)
                 .show()
-            R.id.menu_settings -> Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT)
-                .show()
+            R.id.menu_settings -> {
+                BottomSheetSettingsFragment.newInstance().show(requireActivity().supportFragmentManager, "")
+            }
             android.R.id.home -> {
-                BottomSheetNavFragment().show(requireActivity().supportFragmentManager, "")
+                BottomSheetNavFragment.newInstance().show(requireActivity().supportFragmentManager, "")
             }
         }
         return super.onOptionsItemSelected(item)

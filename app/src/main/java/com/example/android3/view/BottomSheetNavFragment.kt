@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.android3.R
 import com.example.android3.databinding.BottomSheetNavFragmentBinding
-import com.example.android3.databinding.MainFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheetNavFragment : BottomSheetDialogFragment() {
@@ -24,7 +23,7 @@ class BottomSheetNavFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BottomSheetNavFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
