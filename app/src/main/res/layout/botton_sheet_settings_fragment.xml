@@ -9,11 +9,6 @@
     app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/small_indent">
-
         <View
             android:layout_width="@dimen/divider_width"
             android:layout_height="@dimen/divider_height"
@@ -41,5 +36,4 @@
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/small_indent" />
         </FrameLayout>
-    </androidx.cardview.widget.CardView>
 </FrameLayout>

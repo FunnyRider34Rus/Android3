@@ -31,7 +31,6 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
 
     @RequiresApi(Build.VERSION_CODES.O)
     private var currentDay: LocalDate? = getDate(0)     //установка текущей даты
@@ -58,43 +57,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBottomAppBar(binding.bottomAppbar)   //инициализируем appBar
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         updateScreen(currentDay)        //отображаем экран по умолчанию
-
-        //обратока чипов и перерисовка экранов
-        binding.chips.setOnCheckedChangeListener { group, checkedId ->
-            binding.chips.findViewById<Chip>(checkedId)?.let {
-                when (checkedId) {
-                    R.id.chip_before_yesterday -> {
-                        day = 2
-                        currentDay = getDate(day!!)
-                        updateScreen(currentDay)
-                    }
-                    R.id.chip_yesterday -> {
-                        day = 1
-                        currentDay = getDate(day!!)
-                        updateScreen(currentDay)
-                    }
-                    R.id.chip_today -> {
-                        day = 0
-                        currentDay = getDate(day!!)
-                        updateScreen(currentDay)
-                    }
-                }
-            }
-        }
-
-        //находим behavior BottomSheet
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
-
-        //обработка поля ввода текстового поиска
-        binding.search.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.input.text.toString()}")
-            })
-        }
     }
 
     //отображение актуальной информации
@@ -114,53 +79,23 @@ class MainFragment : Fragment() {
                 ) { }.show()
             }
             is APODState.Loading -> {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 binding.apply {
                     progressBar.isVisible = true
                     fragmentMainView.isVisible = false
-                    included.bottomSheetContainer
                 }
             }
             is APODState.Success -> {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                 binding.apply {
                     progressBar.isVisible = false
                     fragmentMainView.isVisible = true
                     pictOfTheDay.load(apodState.serverResponseData.hdurl)
-                    included.bottomSheetDescriptionHeader.text = apodState.serverResponseData.title
-                    included.bottomSheetDescriptionBody.text =
+                    bottomSheetDescriptionHeader.text = apodState.serverResponseData.title
+                    bottomSheetDescriptionBody.text =
                         apodState.serverResponseData.explanation
                 }
 
             }
         }
-    }
-
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(view as Toolbar)
-        setHasOptionsMenu(true)
-    }
-
-    //отображаем AppBar
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom, menu)
-    }
-
-    //обработка AppBar
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_pict -> Toast.makeText(requireContext(), "Favorite", Toast.LENGTH_SHORT)
-                .show()
-            R.id.menu_settings -> {
-                BottomSheetSettingsFragment.newInstance().show(requireActivity().supportFragmentManager, "")
-            }
-            android.R.id.home -> {
-                BottomSheetNavFragment.newInstance().show(requireActivity().supportFragmentManager, "")
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //установка нужной даты

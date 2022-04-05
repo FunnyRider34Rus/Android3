@@ -3,28 +3,36 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_search_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_search_48.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1785" />
+        <entry key="app/src/main/res/drawable/ic_baseline_reply_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_settings_applications_48.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1785" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1785" />
-        <entry key="app/src/main/res/layout/bottom_sheet_apod_description.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/apod_bottom_sheet_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/bottom_sheet_apod_description.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_sheet_nav.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/bottom_sheet_nav_fragment.xml" value="0.14175724637681159" />
+        <entry key="app/src/main/res/layout/bottom_sheet_nav_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/bottom_sheet_web_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/botton_sheet_settings.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/botton_sheet_settings_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/botton_sheet_settings_fragment.xml" value="0.5" />
         <entry key="app/src/main/res/layout/description_bottom_sheet.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.14175724637681159" />
         <entry key="app/src/main/res/layout/fragment_blank2.xml" value="0.14175724637681159" />
-        <entry key="app/src/main/res/layout/main_activity.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/main_fragment.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/main_activity.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/main_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/menu/appbar_menu.xml" value="0.2578125" />
         <entry key="app/src/main/res/menu/main_bottom_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu_bottom.xml" value="0.2578125" />
+        <entry key="app/src/main/res/menu/menu_appbar.xml" value="0.2578125" />
+        <entry key="app/src/main/res/menu/menu_bottom.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_nav.xml" value="0.2578125" />
+        <entry key="app/src/main/res/menu/menu_settings.xml" value="0.16302083333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
