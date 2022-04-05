@@ -1,39 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheetContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
-    app:layout_behavior="@string/bottom_sheet_behavior">
+    android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="@dimen/divider_width"
-            android:layout_height="@dimen/divider_height"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/small_indent"
-            android:background="?attr/colorPrimary" />
+    <TextView
+        android:id="@+id/text_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:layout_margin="@dimen/small_indent"
+        android:text="@string/text_settings" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_indent">
-
-            <TextView
-                android:id="@+id/text_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:layout_margin="@dimen/small_indent"
-                android:text="@string/text_settings" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_margin="@dimen/small_indent" />
-        </FrameLayout>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/small_indent" />
 </FrameLayout>
