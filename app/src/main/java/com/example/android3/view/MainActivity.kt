@@ -37,16 +37,19 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.today -> {
                     sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 0L)?.apply()
+                    item.isChecked
                     refreshFragment()
                     true
                 }
                 R.id.yesterday -> {
                     sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 1L)?.apply()
+                    item.isChecked
                     refreshFragment()
                     true
                 }
                 R.id.before -> {
                     sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 2L)?.apply()
+                    item.isChecked
                     refreshFragment()
                     true
                 }
