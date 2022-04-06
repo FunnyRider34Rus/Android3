@@ -1,24 +1,18 @@
 package com.example.android3.view
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import coil.load
 import com.example.android3.databinding.MainFragmentBinding
 import com.example.android3.viewmodel.APODState
 import com.example.android3.R
 import com.example.android3.viewmodel.MainViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
@@ -32,6 +26,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     private var currentDay: LocalDate? = getDate(0)     //установка текущей даты
 
@@ -39,7 +34,7 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            day = savedInstanceState.getLong(CURRENT_DAY);
+            day = savedInstanceState.getLong(CURRENT_DAY)
             currentDay = getDate(day!!)
         }
     }
@@ -59,7 +54,9 @@ class MainFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
-        updateScreen(currentDay)        //отображаем экран по умолчанию
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+        day = sharedPref.getLong(R.string.nav_key.toString(), 0)
+        updateScreen(getDate(day!!))        //отображаем экран по умолчанию
     }
 
     //отображение актуальной информации

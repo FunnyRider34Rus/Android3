@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_baseline_yesterday" />
 
     <item
-        android:id="@+id/before_yesterday"
+        android:id="@+id/before"
         android:title="@string/before"
         android:icon="@drawable/ic_baseline_before" />
 </menu>

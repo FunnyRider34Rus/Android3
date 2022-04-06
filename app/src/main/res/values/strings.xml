@@ -7,6 +7,8 @@
     <string name="today">Сегодня</string>
     <string name="before">Позавчера</string>
     <string name="text_settings">Тема приложения Material You</string>
-    <string name="theme_key">theme key</string>
     <string name="settings">Настройки</string>
+    <!-- keys -->
+    <string name="theme_key">theme key</string>
+    <string name="nav_key">nav key</string>
 </resources>

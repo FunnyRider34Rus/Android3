@@ -2,6 +2,7 @@ package com.example.android3.view
 
 import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,11 @@ import com.example.android3.R
 import com.example.android3.databinding.BottonSheetSettingsFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheetSettingsFragment : BottomSheetDialogFragment() {
+class SettingsFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = BottomSheetSettingsFragment()
+        fun newInstance() = SettingsFragment()
     }
 
     private var _binding: BottonSheetSettingsFragmentBinding? = null
@@ -31,7 +32,7 @@ class BottomSheetSettingsFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         isMaterial3 = sharedPref?.getBoolean(R.string.theme_key.toString(), false) ?: false
         binding.switchSettings.isChecked = isMaterial3
         binding.switchSettings.setOnCheckedChangeListener { compoundButton, b ->

@@ -3,6 +3,7 @@ package com.example.android3.view
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import com.example.android3.R
@@ -17,19 +18,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
 
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+
+        //получение и установка темы
         val isMaterial3 = sharedPref.getBoolean(R.string.theme_key.toString(), false)
         if (isMaterial3) {
             setTheme(R.style.Theme_MaterialYou)
         } else {
             setTheme(R.style.Theme_Material2)
         }
+
         setContentView(binding.root)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
+            refreshFragment()
         }
+
+        binding.bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.today -> {
+                    sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 0L)?.apply()
+                    refreshFragment()
+                    true
+                }
+                R.id.yesterday -> {
+                    sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 1L)?.apply()
+                    refreshFragment()
+                    true
+                }
+                R.id.before -> {
+                    sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 2L)?.apply()
+                    refreshFragment()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun refreshFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, MainFragment.newInstance())
+            .commitNow()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -41,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.settings -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, BottomSheetSettingsFragment.newInstance())
+                    .replace(R.id.container, SettingsFragment.newInstance())
                     .commitNow()
                 true
             }
