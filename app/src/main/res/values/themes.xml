@@ -21,10 +21,4 @@
         <item name="colorPrimaryContainer">@color/overlay_light_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/overlay_light_onPrimaryContainer</item>
     </style>
-
-    <style name="Widget.MaterialComponents.BottomNavigationView.Colored" parent="Widget.Design.BottomNavigationView">
-        <item name="itemIconTint">@color/overlay_light_primary</item>
-        <item name="itemTextColor">@color/overlay_light_primary</item>
-        <item name="android:background">@color/overlay_light_primaryContainer</item>
-    </style>
 </resources>
