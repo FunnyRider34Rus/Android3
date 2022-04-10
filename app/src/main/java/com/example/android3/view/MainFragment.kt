@@ -16,8 +16,6 @@ import com.example.android3.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
-private const val CURRENT_DAY = "currentday"
-
 private var day: Long? = 0
 
 class MainFragment : Fragment() {
@@ -25,19 +23,6 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private var currentDay: LocalDate? = getDate(0)     //установка текущей даты
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
-            day = savedInstanceState.getLong(CURRENT_DAY)
-            currentDay = getDate(day!!)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +71,7 @@ class MainFragment : Fragment() {
                     progressBar.isVisible = false
                     fragmentMainView.isVisible = true
                     pictOfTheDay.load(apodState.serverResponseData.hdurl)
-                    bottomSheetDescriptionHeader.text = apodState.serverResponseData.title
+                    bottomSheetDescriptionHeader.title = apodState.serverResponseData.title
                     bottomSheetDescriptionBody.text =
                         apodState.serverResponseData.explanation
                 }
@@ -101,11 +86,6 @@ class MainFragment : Fragment() {
         var date = LocalDate.now()
         date = date.minusDays(day)
         return date
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        day?.let { outState.putLong(CURRENT_DAY, it) }
     }
 
     override fun onDestroyView() {

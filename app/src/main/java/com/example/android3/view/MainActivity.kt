@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
 
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 0L)?.apply()
 
         //получение и установка темы
         val isMaterial3 = sharedPref.getBoolean(R.string.theme_key.toString(), false)
