@@ -44,7 +44,6 @@
                     style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:menu="@menu/menu_settings"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
