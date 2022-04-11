@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Android3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="error_loading">Ошибка получения данных</string>
+    <string name="error_repeat">Повторить</string>
+    <string name="yesterday">Вчера</string>
+    <string name="today">Сегодня</string>
+    <string name="before">Позавчера</string>
+    <string name="text_settings">Тема приложения Material You</string>
+    <string name="settings">Настройки</string>
+    <!-- keys -->
+    <string name="theme_key">theme key</string>
+    <string name="nav_key">nav key</string>
 </resources>
