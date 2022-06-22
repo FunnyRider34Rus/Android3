@@ -1,5 +1,7 @@
 package com.example.android3.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -66,13 +68,17 @@ class MainFragment : Fragment() {
                 }
             }
             is APODState.Success -> {
-                binding.apply {
-                    progressBar.isVisible = false
-                    fragmentMainView.isVisible = true
-                    pictOfTheDay.load(apodState.serverResponseData.hdurl)
-                    bottomSheetDescriptionHeader.title = apodState.serverResponseData.title
-                    bottomSheetDescriptionBody.text =
-                        apodState.serverResponseData.explanation
+                if (apodState.serverResponseData.mediaType == "video") {
+                    showAVideoUrl(apodState.serverResponseData.hdurl)
+                } else {
+                    binding.apply {
+                        progressBar.isVisible = false
+                        fragmentMainView.isVisible = true
+                        pictOfTheDay.load(apodState.serverResponseData.hdurl)
+                        bottomSheetDescriptionHeader.title = apodState.serverResponseData.title
+                        bottomSheetDescriptionBody.text =
+                            apodState.serverResponseData.explanation
+                    }
                 }
 
             }
@@ -85,6 +91,21 @@ class MainFragment : Fragment() {
         var date = LocalDate.now()
         date = date.minusDays(day)
         return date
+    }
+
+    private fun showAVideoUrl(videoUrl: String) = with(binding) {
+        with(binding) {
+            pictOfTheDay.visibility = View.GONE
+            bottomSheetDescriptionHeader.title =
+                "Сегодня у нас без картинки дня, но есть видео дня! " +
+                        "$videoUrl \n кликни >ЗДЕСЬ< чтобы открыть в новом окне"
+            bottomSheetDescriptionHeader.setOnClickListener {
+                val i = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(videoUrl)
+                }
+                startActivity(i)
+            }
+        }
     }
 
     override fun onDestroyView() {
