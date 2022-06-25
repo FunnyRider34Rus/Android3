@@ -93,7 +93,7 @@ class MainFragment : Fragment() {
         return date
     }
 
-    private fun showAVideoUrl(videoUrl: String) = with(binding) {
+    private fun showAVideoUrl(videoUrl: String) {
         with(binding) {
             pictOfTheDay.visibility = View.GONE
             bottomSheetDescriptionHeader.title =
