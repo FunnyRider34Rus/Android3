@@ -1,11 +1,10 @@
 package com.example.android3.view
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.example.android3.R
 import com.example.android3.databinding.MainActivityBinding
 

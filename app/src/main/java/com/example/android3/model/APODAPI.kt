@@ -4,7 +4,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.time.LocalDate
-import java.util.*
 
 interface APODAPI {
     @GET ("planetary/apod")

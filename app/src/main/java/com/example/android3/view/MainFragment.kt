@@ -3,17 +3,24 @@ package com.example.android3.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
+import com.example.android3.R
 import com.example.android3.databinding.MainFragmentBinding
 import com.example.android3.viewmodel.APODState
-import com.example.android3.R
 import com.example.android3.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
@@ -25,6 +32,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
+    private var isExpanded = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +51,21 @@ class MainFragment : Fragment() {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         day = sharedPref.getLong(R.string.nav_key.toString(), 0)
         updateScreen(getDate(day!!))        //отображаем экран по умолчанию
+        binding.pictOfTheDay.setOnClickListener {
+            isExpanded = !isExpanded
+            TransitionManager.beginDelayedTransition(
+                    binding.fragmentMainView, TransitionSet()
+                    .addTransition(ChangeBounds())
+                    .addTransition(
+                    ChangeImageTransform()
+                ))
+                val params: ViewGroup.LayoutParams = binding.pictOfTheDay.layoutParams
+                params.height =
+                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            binding.pictOfTheDay.layoutParams = params
+            binding.pictOfTheDay.scaleType =
+            if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+        }
     }
 
     //отображение актуальной информации
