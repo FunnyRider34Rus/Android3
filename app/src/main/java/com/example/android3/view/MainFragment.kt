@@ -75,7 +75,7 @@ class MainFragment : Fragment() {
                         progressBar.isVisible = false
                         fragmentMainView.isVisible = true
                         pictOfTheDay.load(apodState.serverResponseData.hdurl)
-                        bottomSheetDescriptionHeader.title = apodState.serverResponseData.title
+                        bottomSheetDescriptionHeader.text = apodState.serverResponseData.title
                         bottomSheetDescriptionBody.text =
                             apodState.serverResponseData.explanation
                     }
@@ -96,7 +96,7 @@ class MainFragment : Fragment() {
     private fun showAVideoUrl(videoUrl: String) {
         with(binding) {
             pictOfTheDay.visibility = View.GONE
-            bottomSheetDescriptionHeader.title =
+            bottomSheetDescriptionHeader.text =
                 "Сегодня у нас без картинки дня, но есть видео дня! " +
                         "$videoUrl \n кликни >ЗДЕСЬ< чтобы открыть в новом окне"
             bottomSheetDescriptionHeader.setOnClickListener {
