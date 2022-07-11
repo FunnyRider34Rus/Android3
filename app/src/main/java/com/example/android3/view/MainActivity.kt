@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.yesterday -> {
-                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), 1)?.apply()
+                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), -1)?.apply()
                     item.isChecked
                     refreshFragment()
                     true
                 }
                 R.id.before -> {
-                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), 2)?.apply()
+                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), -2)?.apply()
                     item.isChecked
                     refreshFragment()
                     true
