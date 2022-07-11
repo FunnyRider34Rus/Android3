@@ -9,7 +9,6 @@ import com.example.android3.model.APODDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
 
 class MainViewModel(
     private val liveData: MutableLiveData<APODState> = MutableLiveData(),
@@ -20,7 +19,7 @@ class MainViewModel(
         return liveData
     }
 
-    fun sendServerRequest(date: LocalDate?){
+    fun sendServerRequest(date: String){
         liveData.postValue(APODState.Loading(null))
         apodImpl.getAPODImpl().getAPOD(BuildConfig.NASA_API_KEY, date).enqueue(
             object : Callback<APODDTO> {

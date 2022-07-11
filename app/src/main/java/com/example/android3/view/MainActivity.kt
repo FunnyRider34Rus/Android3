@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
 
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
-        sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 0L)?.apply()
+        sharedPref?.edit()?.putInt(R.string.nav_key.toString(), 0)?.apply()
 
         //получение и установка темы
         val isMaterial3 = sharedPref.getBoolean(R.string.theme_key.toString(), false)
@@ -36,19 +36,19 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationMenu.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.today -> {
-                    sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 0L)?.apply()
+                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), 0)?.apply()
                     item.isChecked
                     refreshFragment()
                     true
                 }
                 R.id.yesterday -> {
-                    sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 1L)?.apply()
+                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), 1)?.apply()
                     item.isChecked
                     refreshFragment()
                     true
                 }
                 R.id.before -> {
-                    sharedPref?.edit()?.putLong(R.string.nav_key.toString(), 2L)?.apply()
+                    sharedPref?.edit()?.putInt(R.string.nav_key.toString(), 2)?.apply()
                     item.isChecked
                     refreshFragment()
                     true

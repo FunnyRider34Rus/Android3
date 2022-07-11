@@ -2,14 +2,12 @@ package com.example.android3.view
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,9 +21,10 @@ import com.example.android3.databinding.MainFragmentBinding
 import com.example.android3.viewmodel.APODState
 import com.example.android3.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+import java.util.*
 
-private var day: Long? = 0
+private var day: Int = 0
 
 class MainFragment : Fragment() {
 
@@ -42,15 +41,14 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.getLiveData().observe(viewLifecycleOwner) { renderData(it) }
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
-        day = sharedPref.getLong(R.string.nav_key.toString(), 0)
-        updateScreen(getDate(day!!))        //отображаем экран по умолчанию
+        day = sharedPref.getInt(R.string.nav_key.toString(), 0)
+        updateScreen(getDate(day))        //отображаем экран по умолчанию
         binding.pictOfTheDay.setOnClickListener {
             isExpanded = !isExpanded
             TransitionManager.beginDelayedTransition(
@@ -69,8 +67,7 @@ class MainFragment : Fragment() {
     }
 
     //отображение актуальной информации
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun updateScreen(currentDay: LocalDate?) {
+    private fun updateScreen(currentDay: String) {
         viewModel.sendServerRequest(currentDay)
     }
 
@@ -109,11 +106,12 @@ class MainFragment : Fragment() {
     }
 
     //установка нужной даты
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getDate(day: Long): LocalDate {
-        var date = LocalDate.now()
-        date = date.minusDays(day)
-        return date
+    private fun getDate(day: Int): String {
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, day)
+        val formatted = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        formatted.timeZone = TimeZone.getTimeZone("EST")
+        return formatted.format(currentDate.time)
     }
 
     private fun showAVideoUrl(videoUrl: String) {
