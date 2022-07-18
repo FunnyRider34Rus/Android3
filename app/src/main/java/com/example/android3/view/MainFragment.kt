@@ -1,9 +1,13 @@
 package com.example.android3.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,17 +56,18 @@ class MainFragment : Fragment() {
         binding.pictOfTheDay.setOnClickListener {
             isExpanded = !isExpanded
             TransitionManager.beginDelayedTransition(
-                    binding.fragmentMainView, TransitionSet()
+                binding.fragmentMainView, TransitionSet()
                     .addTransition(ChangeBounds())
                     .addTransition(
-                    ChangeImageTransform()
-                ))
-                val params: ViewGroup.LayoutParams = binding.pictOfTheDay.layoutParams
-                params.height =
+                        ChangeImageTransform()
+                    )
+            )
+            val params: ViewGroup.LayoutParams = binding.pictOfTheDay.layoutParams
+            params.height =
                 if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
             binding.pictOfTheDay.layoutParams = params
             binding.pictOfTheDay.scaleType =
-            if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
+                if (isExpanded) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.FIT_CENTER
         }
     }
 
@@ -97,12 +102,24 @@ class MainFragment : Fragment() {
                         pictOfTheDay.load(apodState.serverResponseData.hdurl)
                         bottomSheetDescriptionHeader.text = apodState.serverResponseData.title
                         bottomSheetDescriptionBody.text =
-                            apodState.serverResponseData.explanation
+                            coloredText(apodState.serverResponseData.explanation)
                     }
                 }
 
             }
         }
+    }
+
+    private fun coloredText(sourceText: String): SpannableString {
+        val spannableString = SpannableString(sourceText)
+        for (pos in spannableString.indices) {
+            if (spannableString[pos].isUpperCase()) {
+                spannableString.setSpan(
+                    ForegroundColorSpan(Color.RED), pos, pos + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+        return spannableString
     }
 
     //установка нужной даты
